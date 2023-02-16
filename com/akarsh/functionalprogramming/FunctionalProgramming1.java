@@ -1,9 +1,7 @@
 package com.akarsh.functionalprogramming;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class FunctionalProgramming1 {
     public static void main(String[] args) {
@@ -22,6 +20,8 @@ public class FunctionalProgramming1 {
 
         printSquaresOfEvenNumbersFunctional(List.of(12,3,4,5,6,1,2,3));
 
+        System.out.println(collectStringStartingWithN(List.of("Nan", "Null", "Ak", "aku", "nan", "null", "Nanna", "nanna")));
+
     }
 
     private static void printSquaresOfEvenNumbersFunctional(List<Integer> integers) {
@@ -39,7 +39,7 @@ public class FunctionalProgramming1 {
         integers
                 .stream()
                 .filter(integer -> integer%2 == 0)
-                .map(integer -> integer * integer)
+                .mapToInt(integer -> integer * integer)
                 .forEach(System.out::println);
 
     }
@@ -94,5 +94,13 @@ public class FunctionalProgramming1 {
         for(Integer x: numbers)
             if( x%2 ==0)
                 System.out.println(x);
+    }
+
+
+
+    private static List<String> collectStringStartingWithN(List<String> names){
+        return names.stream()
+                .filter(name -> name.startsWith("N"))
+                .collect(Collectors.toList());
     }
 }
