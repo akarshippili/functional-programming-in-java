@@ -3,6 +3,7 @@ package com.akarsh.functionalprogramming;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 public class ComparatorExample {
 
@@ -11,8 +12,8 @@ public class ComparatorExample {
         List<Person> persons = Arrays.asList(
                 new Person(21, "john"),
                 new Person(22, "sara"),
-                new Person(23, "jane"),
-                new Person(24, "greg")
+                new Person(22, "jane"),
+                new Person(23, "greg")
         );
 
         List<Person> sortedList = persons
@@ -41,6 +42,14 @@ public class ComparatorExample {
                 .sorted(personComparatorByAge.reversed()) // reversed method is a higher order function which take a functions and return a function by reversing the parameters
                 .toList();
         System.out.println(reverseSortedList2);
+
+        // using comparing
+        Function<Person, String> byName = Person::getName;
+        System.out.println(persons.stream().sorted(Comparator.comparing(byName)).toList());
+
+        // chaining multiple comparators
+        Function<Person, Integer> byAge = Person::getAge;
+        System.out.println(persons.stream().sorted(Comparator.comparing(byAge).thenComparing(byName)).toList());
 
     }
 }
@@ -72,5 +81,13 @@ class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
