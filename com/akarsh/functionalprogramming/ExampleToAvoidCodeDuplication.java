@@ -6,6 +6,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class ExampleToAvoidCodeDuplication {
+
+    private static final Function<String, Predicate<String>> getFilterOnLetter = letter -> s -> s.startsWith(letter);
+
     public static void main(String[] args) {
         final List<String> friends =
                 Arrays.asList("Brian", "Nate", "Neal", "Raju", "Sara", "Scott");
@@ -18,6 +21,7 @@ public class ExampleToAvoidCodeDuplication {
         solutionTwo(friends, editors, comrades);
         solutionThree(friends);
         solutionFour(friends);
+        solutionFive(friends);
     }
 
     private static void solutionOne(List<String> friends, List<String> editors, List<String> comrades) {
@@ -78,4 +82,16 @@ public class ExampleToAvoidCodeDuplication {
         return s -> s.startsWith(letter);
     }
 
+
+
+    private static void solutionFive(List<String> friends) {
+        final long countFriendsStartN =
+                friends.stream()
+                        .filter(getFilterOnLetter.apply("N")).count();
+        final long countFriendsStartB =
+                friends.stream()
+                        .filter(getFilterOnLetter.apply("B")).count();
+
+        System.out.println(countFriendsStartN + " " + countFriendsStartB);
+    }
 }
