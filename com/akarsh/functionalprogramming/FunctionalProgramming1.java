@@ -75,15 +75,14 @@ public class FunctionalProgramming1 {
                 .filter(new Predicate<Integer>() {
                     @Override
                     public boolean test(Integer integer) {
-                        System.out.println("Before filtering");
+                        System.out.printf("Before filtering %d\n", integer);
                         return integer%2==0;
                     }
                 })
                 .forEach(new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) {
-                        System.out.println("Before consuming");
-                        System.out.println(integer);
+                        System.out.printf("Before consuming %d\n", integer);
                     }
                 });
 
